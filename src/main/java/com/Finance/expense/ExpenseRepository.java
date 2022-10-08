@@ -40,9 +40,20 @@ public class ExpenseRepository {
         return expenses;
     }
 
+    public List<Object[]> findExpenseGroupByCategory() {
+        EntityManager entityManager = ConnectionManager.getEntityManager();
 
-
+        String sql = "select c.name, sum(e.amount) from expense e " +
+                "join category c on c.id = e.category_id " +
+                "group by c.name " +
+                "order by sum(e.amount) desc; ";
+        List resultList = entityManager.createNativeQuery(sql).getResultList();
+        entityManager.close();
+        return resultList;
     }
+
+
+}
 
 
 

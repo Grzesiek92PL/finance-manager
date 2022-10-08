@@ -7,6 +7,7 @@ import com.Finance.expense.*;
 import com.Finance.income.IncomeDto;
 import com.Finance.income.IncomeRepository;
 import com.Finance.income.IncomeService;
+import com.Finance.summary.SummaryService;
 import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public class Main {
     private static final IncomeRepository incomeRepository = new IncomeRepository();
     private static final IncomeService incomeService = new IncomeService(incomeRepository);
     // TODO private static final Income income = new Income();
-
+    private static final SummaryService summaryService = new SummaryService(expenseRepository, incomeRepository);
 
     public static void main(String[] args) {
         EntityManager en = ConnectionManager.getEntityManager();
@@ -113,12 +114,13 @@ public class Main {
                 }
 
                 case 8 -> {
-
+                    BigDecimal balance = summaryService.getBalance();
+                    System.out.println("Balance: " + balance);
 
                 }
 
                 case 9 -> {
-
+                    System.out.println(summaryService.getSummaryGroupByCategory());
                 }
 
                 case 10 -> {
