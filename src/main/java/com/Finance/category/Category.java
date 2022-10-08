@@ -22,7 +22,9 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Expense> expenses;
 
-
+public  Category(String name) {
+    this.name = name;
+}
 
 }
 
